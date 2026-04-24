@@ -3,289 +3,189 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>염창역 상권 살리기 AI 포스터 메이커</title>
+  <title>염창역 최애 가게 응원 릴레이</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .poster { width: 380px; height: 520px; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5); background-size: cover; background-position: center; position: relative; overflow: hidden; border-radius: 24px; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    .poster:hover { transform: scale(1.03) rotate(1deg); }
-  </style>
 </head>
 <body class="bg-zinc-950 text-white">
-  <div class="max-w-6xl mx-auto px-4 py-8">
+  <div class="max-w-4xl mx-auto px-4 py-8">
     <!-- Header -->
-    <div class="flex justify-between items-center mb-8">
-      <div>
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl flex items-center justify-center text-xl">🛍</div>
-          <div>
-            <span class="text-4xl font-bold tracking-tighter">염창역 상권 살리기</span>
-          </div>
-        </div>
-        <p class="text-zinc-400 text-lg -mt-1">AI 포스터 메이커</p>
+    <div class="text-center mb-8">
+      <div class="flex justify-center mb-3">
+        <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-3xl flex items-center justify-center text-3xl">❤️</div>
       </div>
+      <h1 class="text-4xl font-bold tracking-tighter">염창역 최애 가게 응원 릴레이</h1>
+      <p class="text-zinc-400 mt-2">내가 사랑하는 염창역 가게에 따뜻한 응원을 남겨주세요</p>
     </div>
 
-    <!-- 목2동 주민센터 동네 행사 배너 (NEW) -->
+    <!-- 목2동 주민센터 행사 배너 -->
     <div class="mb-10 bg-gradient-to-r from-emerald-900/80 to-teal-900/80 border border-emerald-700 rounded-3xl p-8">
-      <div class="flex flex-col md:flex-row gap-8 items-center">
+      <div class="flex flex-col md:flex-row items-center gap-6">
         <div class="flex-1">
-          <div class="inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-300 px-4 py-1 rounded-full text-sm mb-4">
+          <div class="inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-300 px-4 py-1 rounded-full text-sm mb-3">
             <span>📅</span> <span class="font-semibold">5월 가정의 달 행사</span>
           </div>
-          <h2 class="text-3xl font-bold leading-tight mb-4">목2동 주민센터와 함께하는 동네 행사</h2>
-          <div class="text-emerald-100 space-y-3 text-[15px]">
-            <p>염창역 인근 주민 + 소상공인이 함께 참여하는 따뜻한 행사예요.</p>
-            <div class="flex flex-wrap gap-x-8 gap-y-2 text-sm">
-              <div>🎪 주민센터 광장 행사</div>
-              <div>🛍 소상공인 홍보 부스</div>
-              <div>💖 사장님 응원 담벼락 참여</div>
-            </div>
-            <p class="text-xs text-emerald-300">우리 동네를 함께 살리는 가장 좋은 방법!</p>
-          </div>
+          <h2 class="text-2xl font-bold">목2동 주민센터와 함께하는 동네 행사</h2>
+          <p class="text-emerald-100 mt-2">염창역 인근 주민 + 소상공인이 함께 참여하는 따뜻한 행사예요.</p>
         </div>
-        <div class="text-center md:text-right">
-          <div class="text-6xl mb-2">🏠</div>
-          <div class="text-sm text-emerald-300 font-medium">목2동 주민센터 주관</div>
+        <div class="text-center">
+          <div class="text-5xl mb-1">🏠</div>
+          <div class="text-xs text-emerald-300">목2동 주민센터 주관</div>
         </div>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <!-- 입력 -->
-      <div class="bg-zinc-900 rounded-3xl p-8 border border-zinc-800">
-        <div class="uppercase tracking-[3px] text-xs text-pink-500 mb-2">STEP 01</div>
-        <h2 class="text-3xl font-bold mb-6">포스터 만들기</h2>
-
-        <div class="space-y-5">
-          <div>
-            <label class="text-sm text-zinc-400">가게명</label>
-            <input id="shopName" value="호카호카" class="mt-1 w-full bg-zinc-950 border border-zinc-700 focus:border-pink-500 px-5 py-4 rounded-2xl text-lg">
-          </div>
-          <div>
-            <label class="text-sm text-zinc-400">한 줄 설명</label>
-            <input id="desc" value="귀여운 생크림케이크 전문점" class="mt-1 w-full bg-zinc-950 border border-zinc-700 focus:border-pink-500 px-5 py-4 rounded-2xl text-lg">
-          </div>
-
-          <div>
-            <label class="text-sm text-zinc-400">가게 사진 업로드 (선택)</label>
-            <input type="file" id="photoUpload" accept="image/*" class="mt-1 w-full text-sm file:bg-zinc-800 file:text-white file:px-5 file:py-3 file:rounded-2xl file:border-0 hover:file:bg-zinc-700 cursor-pointer">
-          </div>
-
-          <div class="pt-2">
-            <button onclick="generatePoster()" 
-                    class="w-full py-4 bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-110 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 active:scale-[0.985]">
-              <span>✨ AI로 포스터 생성하기</span>
+    <!-- 응원 메시지 작성 폼 -->
+    <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8 mb-10">
+      <h3 class="font-bold text-xl mb-5 flex items-center gap-2">
+        <span>✍️</span> 응원 메시지 남기기
+      </h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+        <div class="md:col-span-4">
+          <label class="text-sm text-zinc-400 block mb-1.5">최애 가게</label>
+          <select id="shopSelect" class="w-full bg-zinc-950 border border-zinc-700 px-4 py-3 rounded-2xl">
+            <option value="호카호카">호카호카 (디저트)</option>
+            <option value="두아드">두아드 (파티세리)</option>
+            <option value="올라피자">올라피자 (피자)</option>
+            <option value="민차이">민차이 (중식)</option>
+            <option value="비빕밥비빔">비빕밥비빔 (한식)</option>
+          </select>
+        </div>
+        
+        <div class="md:col-span-4">
+          <label class="text-sm text-zinc-400 block mb-1.5">이름 (선택)</label>
+          <input id="authorInput" placeholder="익명" class="w-full bg-zinc-950 border border-zinc-700 px-4 py-3 rounded-2xl">
+        </div>
+        
+        <div class="md:col-span-12">
+          <label class="text-sm text-zinc-400 block mb-1.5">응원 메시지</label>
+          <div class="flex gap-3">
+            <input id="messageInput" placeholder="사장님 항상 맛있게 해주셔서 감사해요! ❤️" 
+                   class="flex-1 bg-zinc-950 border border-zinc-700 px-4 py-3 rounded-2xl">
+            <button onclick="addCheer()" 
+                    class="px-8 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold rounded-2xl hover:brightness-110">
+              응원하기
             </button>
           </div>
         </div>
       </div>
-
-      <!-- 포스터 미리보기 -->
-      <div class="flex justify-center">
-        <div id="result" class="poster bg-zinc-900 flex items-center justify-center text-zinc-500 text-sm border border-zinc-700">
-          포스터 미리보기
-        </div>
-      </div>
     </div>
 
-    <!-- 갤러리 -->
-    <div class="mt-12">
-      <div class="flex items-center justify-between mb-5 px-1">
-        <div class="font-bold text-xl">염창역 인기 가게 (사진 매칭 완료)</div>
-        <div class="text-sm text-zinc-500">클릭하면 바로 적용</div>
-      </div>
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-4" id="gallery"></div>
-    </div>
-
-    <!-- 사장님 응원 담벼락 -->
-    <div class="mt-12 bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
-      <div class="flex items-center gap-4 mb-6">
-        <div class="text-4xl">💖</div>
-        <div>
-          <div class="font-bold text-2xl">사장님 응원 담벼락</div>
-          <div class="text-zinc-400 text-sm">사장님들께 따뜻한 한 마디를 남겨주세요</div>
+    <!-- 응원 릴레이 카드뉴스 -->
+    <div>
+      <div class="flex items-center justify-between mb-6 px-1">
+        <div class="font-bold text-2xl flex items-center gap-2">
+          <span>💌</span> 응원 릴레이
         </div>
-        <div class="ml-auto bg-zinc-950 px-4 py-1.5 rounded-2xl text-sm flex items-center gap-2">
-          오늘의 응원 <span id="todayCount" class="font-mono text-emerald-400 font-bold">163</span>개
-        </div>
+        <div class="text-sm text-zinc-400">총 <span id="totalCount" class="font-mono text-pink-400 font-bold">187</span>개의 응원</div>
       </div>
 
-      <div class="bg-zinc-950 border border-zinc-800 p-5 rounded-2xl mb-6">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
-          <div class="md:col-span-3">
-            <select id="commentShop" class="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 rounded-2xl text-sm">
-              <option value="전체 상권">전체 상권</option>
-              <option value="호카호카">호카호카</option>
-              <option value="두아드">두아드</option>
-              <option value="올라피자">올라피자</option>
-              <option value="민차이">민차이</option>
-              <option value="비빕밥비빔">비빕밥비빔</option>
-            </select>
-          </div>
-          <div class="md:col-span-3">
-            <input id="commentAuthor" placeholder="이름 (선택)" class="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 rounded-2xl text-sm">
-          </div>
-          <div class="md:col-span-6 flex gap-3">
-            <input id="commentMessage" placeholder="사장님 오늘도 최고예요! ❤️" class="flex-1 bg-zinc-900 border border-zinc-700 px-4 py-3 rounded-2xl text-sm">
-            <button onclick="addCommentWithEffect()" 
-                    class="px-8 bg-white text-black font-bold rounded-2xl hover:bg-zinc-200 active:scale-95">남기기</button>
-          </div>
-        </div>
-      </div>
-
-      <div id="commentList" class="space-y-3 max-h-[420px] overflow-y-auto pr-2 text-sm"></div>
+      <div id="cheerList" class="space-y-4"></div>
     </div>
 
     <div class="text-center text-xs text-zinc-500 mt-16">Made for 염창 상권 • AI 활용 사례 공모전</div>
   </div>
 
   <script>
-    function init() {
-      tailwind.config = { darkMode: 'class' };
-      document.documentElement.classList.add('dark');
+    let cheers = JSON.parse(localStorage.getItem('yeomchang_cheers') || '[]');
 
-      if (!localStorage.getItem('yeomchang_v49')) {
-        localStorage.setItem('yeomchang_v49', JSON.stringify([
-          {id:1, shop:"호카호카", author:"염창러버", message:"케이크가 너무 귀엽고 맛있어요! 사장님 최고❤️", time:"방금 전"},
-          {id:2, shop:"두아드", author:"목동주민", message:"마들렌 진짜 미쳤어요... 매일 생각남", time:"1시간 전"},
-          {id:3, shop:"올라피자", author:"피자덕후", message:"화덕피자 중에 여기 진짜 1등!", time:"어제"},
-        ]));
+    const emojis = ['❤️', '🔥', '👏', '🌟', '💖', '🥰', '🙌', '✨', '💪', '🎉', '🥳', '💗', '🌸', '🍀'];
+
+    function getRandomEmoji() {
+      return emojis[Math.floor(Math.random() * emojis.length)];
+    }
+
+    function saveCheers() {
+      localStorage.setItem('yeomchang_cheers', JSON.stringify(cheers));
+    }
+
+    function addCheer() {
+      const shop = document.getElementById('shopSelect').value;
+      const author = document.getElementById('authorInput').value || '익명';
+      const message = document.getElementById('messageInput').value.trim();
+
+      if (!message) {
+        alert('응원 메시지를 입력해주세요!');
+        return;
       }
 
-      createGallery();
-      renderComments();
-      updateLiveCount();
-      setInterval(updateLiveCount, 15000);
-    }
-
-    function updateLiveCount() {
-      const el = document.getElementById('liveCount');
-      if (el) el.textContent = (1318 + Math.floor(Math.random() * 12)).toLocaleString();
-    }
-
-    const shopImages = {
-      "호카호카": "https://picsum.photos/id/1015/600/400",
-      "두아드": "https://picsum.photos/id/292/600/400",
-      "올라피자": "https://picsum.photos/id/1060/600/400",
-      "민차이": "https://picsum.photos/id/431/600/400",
-      "비빕밥비빔": "https://picsum.photos/id/1080/600/400"
-    };
-
-    function createGallery() {
-      const container = document.getElementById('gallery');
-      const shops = [
-        {n:"호카호카", d:"귀여운 생크림케이크", img: shopImages["호카호카"]},
-        {n:"두아드", d:"프랑스식 파티세리 (마들렌)", img: shopImages["두아드"]},
-        {n:"올라피자", d:"화덕 나폴리 피자", img: shopImages["올라피자"]},
-        {n:"민차이", d:"시원한 중식당", img: shopImages["민차이"]},
-        {n:"비빕밥비빔", d:"든든한 건강 비빔밥", img: shopImages["비빕밥비빔"]}
-      ];
-      container.innerHTML = shops.map(s => `
-        <div onclick="quickApply('${s.n}', '${s.d}', '${s.img}')" 
-             class="group relative overflow-hidden rounded-3xl aspect-[4/3] cursor-pointer border border-zinc-800">
-          <img src="${s.img}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-          <div class="absolute bottom-0 p-4 text-white">
-            <div class="font-bold text-lg">${s.n}</div>
-            <div class="text-xs opacity-75">${s.d}</div>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function quickApply(name, desc, img) {
-      document.getElementById('shopName').value = name;
-      document.getElementById('desc').value = desc;
-      createPoster(name, desc, img);
-      window.scrollTo({top: 180, behavior: 'smooth'});
-    }
-
-    function createPoster(name, desc, bg) {
-      const el = document.getElementById('result');
-      el.innerHTML = `
-        <div class="poster w-full h-full" style="background-image: url('${bg}')">
-          <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/60 to-black/85"></div>
-          <div class="absolute inset-0 p-8 flex flex-col justify-end text-white">
-            <div class="text-[42px] font-black tracking-tighter leading-none mb-3">${name}</div>
-            <div class="text-xl mb-8 opacity-90">${desc}</div>
-            
-            <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur px-5 py-2 rounded-2xl w-fit mb-6">
-              <span class="text-lg">염창역 맛집</span>
-            </div>
-            
-            <div class="text-sm space-y-1 opacity-90">
-              <div>📍 염창역 3번 출구 도보 5분</div>
-              <div>⭐ 지금 바로 방문하세요!</div>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    function generatePoster() {
-      const name = document.getElementById('shopName').value || "염창 맛집";
-      const desc = document.getElementById('desc').value || "염창역 인근";
-      const file = document.getElementById('photoUpload').files[0];
-
-      let bgImage = shopImages[name] || "https://picsum.photos/id/1015/800/1000";
-
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = e => createPoster(name, desc, e.target.result);
-        reader.readAsDataURL(file);
-      } else {
-        createPoster(name, desc, bgImage);
-      }
-    }
-
-    function addCommentWithEffect() {
-      const shop = document.getElementById('commentShop').value;
-      const author = document.getElementById('commentAuthor').value || "익명";
-      const msg = document.getElementById('commentMessage').value.trim();
-      if (!msg) return alert("메시지를 입력해주세요!");
-
-      const newC = {
+      const newCheer = {
         id: Date.now(),
-        shop,
-        author,
-        message: msg,
-        time: "방금 전"
+        shop: shop,
+        author: author,
+        message: message,
+        emoji: getRandomEmoji(),
+        time: '방금 전'
       };
 
-      let data = JSON.parse(localStorage.getItem('yeomchang_v49') || '[]');
-      data.unshift(newC);
-      localStorage.setItem('yeomchang_v49', JSON.stringify(data));
+      cheers.unshift(newCheer);
+      saveCheers();
+      renderCheers();
 
-      renderComments();
-      document.getElementById('commentMessage').value = '';
-      const countEl = document.getElementById('todayCount');
-      if (countEl) countEl.textContent = (parseInt(countEl.textContent) + 1);
+      // 입력 초기화
+      document.getElementById('messageInput').value = '';
+      document.getElementById('authorInput').value = '';
+
+      // 카운트 업데이트
+      updateCount();
     }
 
-    function renderComments() {
-      const container = document.getElementById('commentList');
-      const data = JSON.parse(localStorage.getItem('yeomchang_v49') || '[]');
-      
-      container.innerHTML = data.map(c => `
-        <div class="bg-zinc-950 border border-zinc-800 px-5 py-4 rounded-2xl flex gap-4 items-start">
-          <div class="flex-1">
-            <div class="flex items-center gap-2 text-xs mb-1">
-              <span class="font-semibold text-pink-400">${c.shop}</span>
-              <span class="text-zinc-500">· ${c.time}</span>
-            </div>
-            <div class="text-zinc-300">"${c.message}"</div>
-            <div class="text-[10px] text-zinc-500 mt-1.5">— ${c.author}</div>
+    function renderCheers() {
+      const container = document.getElementById('cheerList');
+      container.innerHTML = '';
+
+      if (cheers.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-16 text-zinc-400">
+            아직 응원이 없어요.<br>
+            첫 번째 응원을 남겨주세요! ❤️
           </div>
-          <button onclick="deleteComment(${c.id})" class="text-zinc-600 hover:text-red-400 text-xl leading-none mt-0.5">×</button>
-        </div>
-      `).join('');
+        `;
+        return;
+      }
+
+      cheers.forEach(cheer => {
+        const card = document.createElement('div');
+        card.className = `bg-zinc-900 border border-zinc-700 rounded-3xl p-6 hover:border-pink-500/50 transition`;
+        card.innerHTML = `
+          <div class="flex items-start gap-4">
+            <div class="text-5xl flex-shrink-0 mt-1">${cheer.emoji}</div>
+            
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="font-bold text-pink-400">${cheer.shop}</span>
+                <span class="text-xs text-zinc-500">${cheer.time}</span>
+              </div>
+              
+              <div class="text-lg leading-relaxed">"${cheer.message}"</div>
+              
+              <div class="text-sm text-zinc-400 mt-3">— ${cheer.author}</div>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
     }
 
-    function deleteComment(id) {
-      let data = JSON.parse(localStorage.getItem('yeomchang_v49') || '[]');
-      data = data.filter(c => c.id !== id);
-      localStorage.setItem('yeomchang_v49', JSON.stringify(data));
-      renderComments();
+    function updateCount() {
+      document.getElementById('totalCount').textContent = cheers.length;
+    }
+
+    function init() {
+      // 샘플 데이터 (처음 한 번만)
+      if (cheers.length === 0) {
+        cheers = [
+          {id:1, shop:"호카호카", author:"염창러버", message:"케이크가 너무 귀엽고 맛있어요! 사장님 최고❤️", emoji:"❤️", time:"방금 전"},
+          {id:2, shop:"두아드", author:"목동주민", message:"마들렌 진짜 미쳤어요... 매일 생각남", emoji:"🌟", time:"1시간 전"},
+          {id:3, shop:"올라피자", author:"피자덕후", message:"화덕피자 중에 여기 진짜 1등!", emoji:"🔥", time:"어제"},
+          {id:4, shop:"민차이", author:"중식러버", message:"짬뽕 국물이 시원하고 맛있어요", emoji:"👏", time:"어제"},
+          {id:5, shop:"비빕밥비빔", author:"건강지킴이", message:"비빔밥 신선하고 양도 많아서 든든해요", emoji:"💖", time:"2일 전"},
+        ];
+        saveCheers();
+      }
+
+      renderCheers();
+      updateCount();
     }
 
     window.onload = init;
