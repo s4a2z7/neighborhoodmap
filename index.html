@@ -25,27 +25,27 @@
       </div>
     </div>
 
-    <!-- 상권 현황 배너 -->
-    <div class="mb-10 bg-gradient-to-r from-zinc-900 to-zinc-800 border border-zinc-700 rounded-3xl p-8">
+    <!-- 목2동 주민센터 동네 행사 배너 (NEW) -->
+    <div class="mb-10 bg-gradient-to-r from-emerald-900/80 to-teal-900/80 border border-emerald-700 rounded-3xl p-8">
       <div class="flex flex-col md:flex-row gap-8 items-center">
         <div class="flex-1">
-          <div class="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-400 px-4 py-1 rounded-full text-sm mb-4">
-            <span>📰</span> <span class="font-semibold">2026년 최신 소식</span>
+          <div class="inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-300 px-4 py-1 rounded-full text-sm mb-4">
+            <span>📅</span> <span class="font-semibold">5월 가정의 달 행사</span>
           </div>
-          <h2 class="text-3xl font-bold leading-tight mb-4">염창역, 지금 큰 변화가 시작됩니다</h2>
-          <div class="text-zinc-300 space-y-3 text-[15px]">
-            <p>서울시 + SH가 추진하는 <span class="font-semibold text-white">역세권 활성화사업</span>이 본격화되고 있어요.</p>
+          <h2 class="text-3xl font-bold leading-tight mb-4">목2동 주민센터와 함께하는 동네 행사</h2>
+          <div class="text-emerald-100 space-y-3 text-[15px]">
+            <p>염창역 인근 주민 + 소상공인이 함께 참여하는 따뜻한 행사예요.</p>
             <div class="flex flex-wrap gap-x-8 gap-y-2 text-sm">
-              <div>📍 목동 523-45 일대</div>
-              <div>🏢 지상 24층 · 414세대 아파트</div>
-              <div>🚀 청년창업 + 평생학습센터</div>
+              <div>🎪 주민센터 광장 행사</div>
+              <div>🛍 소상공인 홍보 부스</div>
+              <div>💖 사장님 응원 담벼락 참여</div>
             </div>
-            <p class="text-xs text-zinc-400">목2동 시장과 연계한 지역 상권 활성화가 핵심 목표입니다.</p>
+            <p class="text-xs text-emerald-300">우리 동네를 함께 살리는 가장 좋은 방법!</p>
           </div>
         </div>
         <div class="text-center md:text-right">
-          <div class="text-6xl mb-2">🏗️</div>
-          <div class="text-sm text-emerald-400 font-medium">공공시행 첫 사례</div>
+          <div class="text-6xl mb-2">🏠</div>
+          <div class="text-sm text-emerald-300 font-medium">목2동 주민센터 주관</div>
         </div>
       </div>
     </div>
@@ -106,7 +106,7 @@
           <div class="text-zinc-400 text-sm">사장님들께 따뜻한 한 마디를 남겨주세요</div>
         </div>
         <div class="ml-auto bg-zinc-950 px-4 py-1.5 rounded-2xl text-sm flex items-center gap-2">
-          오늘의 응원 <span id="todayCount" class="font-mono text-emerald-400 font-bold">152</span>개
+          오늘의 응원 <span id="todayCount" class="font-mono text-emerald-400 font-bold">163</span>개
         </div>
       </div>
 
@@ -144,8 +144,8 @@
       tailwind.config = { darkMode: 'class' };
       document.documentElement.classList.add('dark');
 
-      if (!localStorage.getItem('yeomchang_v47')) {
-        localStorage.setItem('yeomchang_v47', JSON.stringify([
+      if (!localStorage.getItem('yeomchang_v49')) {
+        localStorage.setItem('yeomchang_v49', JSON.stringify([
           {id:1, shop:"호카호카", author:"염창러버", message:"케이크가 너무 귀엽고 맛있어요! 사장님 최고❤️", time:"방금 전"},
           {id:2, shop:"두아드", author:"목동주민", message:"마들렌 진짜 미쳤어요... 매일 생각남", time:"1시간 전"},
           {id:3, shop:"올라피자", author:"피자덕후", message:"화덕피자 중에 여기 진짜 1등!", time:"어제"},
@@ -160,23 +160,22 @@
 
     function updateLiveCount() {
       const el = document.getElementById('liveCount');
-      if (el) el.textContent = (1305 + Math.floor(Math.random() * 12)).toLocaleString();
+      if (el) el.textContent = (1318 + Math.floor(Math.random() * 12)).toLocaleString();
     }
 
-    // 각 가게별 맞는 사진
     const shopImages = {
-      "호카호카": "https://picsum.photos/id/292/800/1000",
-      "두아드": "https://picsum.photos/id/1060/800/1000",
-      "올라피자": "https://picsum.photos/id/431/800/1000",
-      "민차이": "https://picsum.photos/id/1080/800/1000",
-      "비빕밥비빔": "https://picsum.photos/id/1015/800/1000"
+      "호카호카": "https://picsum.photos/id/1015/600/400",
+      "두아드": "https://picsum.photos/id/292/600/400",
+      "올라피자": "https://picsum.photos/id/1060/600/400",
+      "민차이": "https://picsum.photos/id/431/600/400",
+      "비빕밥비빔": "https://picsum.photos/id/1080/600/400"
     };
 
     function createGallery() {
       const container = document.getElementById('gallery');
       const shops = [
         {n:"호카호카", d:"귀여운 생크림케이크", img: shopImages["호카호카"]},
-        {n:"두아드", d:"프랑스식 파티세리", img: shopImages["두아드"]},
+        {n:"두아드", d:"프랑스식 파티세리 (마들렌)", img: shopImages["두아드"]},
         {n:"올라피자", d:"화덕 나폴리 피자", img: shopImages["올라피자"]},
         {n:"민차이", d:"시원한 중식당", img: shopImages["민차이"]},
         {n:"비빕밥비빔", d:"든든한 건강 비빔밥", img: shopImages["비빕밥비빔"]}
@@ -228,7 +227,7 @@
       const desc = document.getElementById('desc').value || "염창역 인근";
       const file = document.getElementById('photoUpload').files[0];
 
-      let bgImage = shopImages[name] || "https://picsum.photos/id/292/800/1000";
+      let bgImage = shopImages[name] || "https://picsum.photos/id/1015/800/1000";
 
       if (file) {
         const reader = new FileReader();
@@ -253,9 +252,9 @@
         time: "방금 전"
       };
 
-      let data = JSON.parse(localStorage.getItem('yeomchang_v47') || '[]');
+      let data = JSON.parse(localStorage.getItem('yeomchang_v49') || '[]');
       data.unshift(newC);
-      localStorage.setItem('yeomchang_v47', JSON.stringify(data));
+      localStorage.setItem('yeomchang_v49', JSON.stringify(data));
 
       renderComments();
       document.getElementById('commentMessage').value = '';
@@ -265,7 +264,7 @@
 
     function renderComments() {
       const container = document.getElementById('commentList');
-      const data = JSON.parse(localStorage.getItem('yeomchang_v47') || '[]');
+      const data = JSON.parse(localStorage.getItem('yeomchang_v49') || '[]');
       
       container.innerHTML = data.map(c => `
         <div class="bg-zinc-950 border border-zinc-800 px-5 py-4 rounded-2xl flex gap-4 items-start">
@@ -283,9 +282,9 @@
     }
 
     function deleteComment(id) {
-      let data = JSON.parse(localStorage.getItem('yeomchang_v47') || '[]');
+      let data = JSON.parse(localStorage.getItem('yeomchang_v49') || '[]');
       data = data.filter(c => c.id !== id);
-      localStorage.setItem('yeomchang_v47', JSON.stringify(data));
+      localStorage.setItem('yeomchang_v49', JSON.stringify(data));
       renderComments();
     }
 
