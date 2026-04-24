@@ -34,6 +34,19 @@
       </div>
     </div>
 
+    <!-- 명예의 전당 (NEW) -->
+    <div class="mb-10">
+      <div class="flex items-center gap-3 mb-5 px-1">
+        <div class="text-3xl">🏆</div>
+        <div>
+          <div class="font-bold text-2xl">이번주 명예의 전당</div>
+          <div class="text-sm text-zinc-400">응원 수 기준 실시간 랭킹</div>
+        </div>
+      </div>
+      
+      <div id="hallOfFame" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+    </div>
+
     <!-- 응원 메시지 작성 폼 -->
     <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8 mb-10">
       <h3 class="font-bold text-xl mb-5 flex items-center gap-2">
@@ -41,18 +54,25 @@
       </h3>
       
       <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
-        <div class="md:col-span-4">
+        <div class="md:col-span-5">
           <label class="text-sm text-zinc-400 block mb-1.5">최애 가게</label>
-          <select id="shopSelect" class="w-full bg-zinc-950 border border-zinc-700 px-4 py-3 rounded-2xl">
-            <option value="호카호카">호카호카 (디저트)</option>
-            <option value="두아드">두아드 (파티세리)</option>
-            <option value="올라피자">올라피자 (피자)</option>
-            <option value="민차이">민차이 (중식)</option>
-            <option value="비빕밥비빔">비빕밥비빔 (한식)</option>
-          </select>
+          <div class="flex gap-2">
+            <select id="shopSelect" onchange="handleShopChange()" 
+                    class="flex-1 bg-zinc-950 border border-zinc-700 px-4 py-3 rounded-2xl">
+              <!-- JS로 동적 생성 -->
+            </select>
+          </div>
+          
+          <div id="newShopInput" class="hidden mt-3">
+            <div class="flex gap-2">
+              <input id="newShopName" placeholder="가게 이름" class="flex-1 bg-zinc-950 border border-zinc-700 px-4 py-2.5 rounded-2xl text-sm">
+              <input id="newShopDesc" placeholder="간단 설명" class="flex-1 bg-zinc-950 border border-zinc-700 px-4 py-2.5 rounded-2xl text-sm">
+              <button onclick="addNewShop()" class="px-5 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold rounded-2xl">추가</button>
+            </div>
+          </div>
         </div>
         
-        <div class="md:col-span-4">
+        <div class="md:col-span-3">
           <label class="text-sm text-zinc-400 block mb-1.5">이름 (선택)</label>
           <input id="authorInput" placeholder="익명" class="w-full bg-zinc-950 border border-zinc-700 px-4 py-3 rounded-2xl">
         </div>
@@ -60,24 +80,20 @@
         <div class="md:col-span-12">
           <label class="text-sm text-zinc-400 block mb-1.5">응원 메시지</label>
           <div class="flex gap-3">
-            <input id="messageInput" placeholder="사장님 항상 맛있게 해주셔서 감사해요! ❤️" 
-                   class="flex-1 bg-zinc-950 border border-zinc-700 px-4 py-3 rounded-2xl">
-            <button onclick="addCheer()" 
-                    class="px-8 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold rounded-2xl hover:brightness-110">
-              응원하기
-            </button>
+            <input id="messageInput" placeholder="사장님 항상 맛있게 해주셔서 감사해요! ❤️" class="flex-1 bg-zinc-950 border border-zinc-700 px-4 py-3 rounded-2xl">
+            <button onclick="addCheer()" class="px-8 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold rounded-2xl hover:brightness-110">응원하기</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 응원 릴레이 카드뉴스 -->
+    <!-- 응원 릴레이 -->
     <div>
       <div class="flex items-center justify-between mb-6 px-1">
         <div class="font-bold text-2xl flex items-center gap-2">
           <span>💌</span> 응원 릴레이
         </div>
-        <div class="text-sm text-zinc-400">총 <span id="totalCount" class="font-mono text-pink-400 font-bold">187</span>개의 응원</div>
+        <div class="text-sm text-zinc-400">총 <span id="totalCount" class="font-mono text-pink-400 font-bold">0</span>개의 응원</div>
       </div>
 
       <div id="cheerList" class="space-y-4"></div>
@@ -88,6 +104,15 @@
 
   <script>
     let cheers = JSON.parse(localStorage.getItem('yeomchang_cheers') || '[]');
+    let customShops = JSON.parse(localStorage.getItem('yeomchang_custom_shops') || '[]');
+
+    const defaultShops = [
+      {name: "호카호카", desc: "디저트"},
+      {name: "두아드", desc: "파티세리"},
+      {name: "올라피자", desc: "피자"},
+      {name: "민차이", desc: "중식"},
+      {name: "비빕밥비빔", desc: "한식"}
+    ];
 
     const emojis = ['❤️', '🔥', '👏', '🌟', '💖', '🥰', '🙌', '✨', '💪', '🎉', '🥳', '💗', '🌸', '🍀'];
 
@@ -95,8 +120,108 @@
       return emojis[Math.floor(Math.random() * emojis.length)];
     }
 
-    function saveCheers() {
-      localStorage.setItem('yeomchang_cheers', JSON.stringify(cheers));
+    function saveCheers() { localStorage.setItem('yeomchang_cheers', JSON.stringify(cheers)); }
+    function saveCustomShops() { localStorage.setItem('yeomchang_custom_shops', JSON.stringify(customShops)); }
+
+    function loadShops() {
+      const select = document.getElementById('shopSelect');
+      select.innerHTML = '';
+
+      defaultShops.forEach(shop => {
+        const opt = document.createElement('option');
+        opt.value = shop.name;
+        opt.textContent = `${shop.name} (${shop.desc})`;
+        select.appendChild(opt);
+      });
+
+      customShops.forEach(shop => {
+        const opt = document.createElement('option');
+        opt.value = shop.name;
+        opt.textContent = `${shop.name} (${shop.desc})`;
+        select.appendChild(opt);
+      });
+
+      const newOpt = document.createElement('option');
+      newOpt.value = '__new__';
+      newOpt.textContent = '➕ 새 가게 직접 추가';
+      select.appendChild(newOpt);
+    }
+
+    function handleShopChange() {
+      const select = document.getElementById('shopSelect');
+      const inputDiv = document.getElementById('newShopInput');
+      if (select.value === '__new__') {
+        inputDiv.classList.remove('hidden');
+        inputDiv.classList.add('flex');
+      } else {
+        inputDiv.classList.add('hidden');
+        inputDiv.classList.remove('flex');
+      }
+    }
+
+    function addNewShop() {
+      const nameInput = document.getElementById('newShopName').value.trim();
+      const descInput = document.getElementById('newShopDesc').value.trim() || '기타';
+      if (!nameInput) { alert('가게 이름을 입력해주세요!'); return; }
+
+      if (defaultShops.some(s => s.name === nameInput) || customShops.some(s => s.name === nameInput)) {
+        alert('이미 등록된 가게예요!'); return;
+      }
+
+      customShops.push({name: nameInput, desc: descInput});
+      saveCustomShops();
+      loadShops();
+
+      document.getElementById('shopSelect').value = nameInput;
+      document.getElementById('newShopInput').classList.add('hidden');
+      document.getElementById('newShopName').value = '';
+      document.getElementById('newShopDesc').value = '';
+    }
+
+    function calculateRankings() {
+      const counts = {};
+      
+      // 기본 + 커스텀 가게 모두 카운트
+      const allShops = [...defaultShops, ...customShops];
+      allShops.forEach(shop => counts[shop.name] = 0);
+
+      cheers.forEach(cheer => {
+        if (counts[cheer.shop] !== undefined) {
+          counts[cheer.shop]++;
+        } else {
+          counts[cheer.shop] = 1; // 새로 추가된 가게
+        }
+      });
+
+      // 랭킹 정렬
+      return Object.entries(counts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5); // 상위 5개
+    }
+
+    function renderHallOfFame() {
+      const container = document.getElementById('hallOfFame');
+      const rankings = calculateRankings();
+      container.innerHTML = '';
+
+      rankings.forEach(([shopName, count], index) => {
+        const isFirst = index === 0;
+        
+        const card = document.createElement('div');
+        card.className = `rounded-3xl p-5 border ${isFirst ? 'border-yellow-400 bg-yellow-900/30 scale-[1.02]' : 'border-zinc-700 bg-zinc-900'}`;
+        
+        card.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="text-4xl">${isFirst ? '👑' : (index === 1 ? '🥈' : index === 2 ? '🥉' : '🏅')}</div>
+            <div class="flex-1">
+              <div class="font-bold ${isFirst ? 'text-yellow-300 text-xl' : 'text-lg'}">${shopName}</div>
+              <div class="text-sm ${isFirst ? 'text-yellow-400' : 'text-zinc-400'}">${count}개의 응원</div>
+            </div>
+            ${isFirst ? `<div class="text-xs bg-yellow-400 text-black px-2 py-0.5 rounded font-bold">1위</div>` : ''}
+          </div>
+        `;
+        container.appendChild(card);
+      });
     }
 
     function addCheer() {
@@ -104,10 +229,8 @@
       const author = document.getElementById('authorInput').value || '익명';
       const message = document.getElementById('messageInput').value.trim();
 
-      if (!message) {
-        alert('응원 메시지를 입력해주세요!');
-        return;
-      }
+      if (!message) { alert('응원 메시지를 입력해주세요!'); return; }
+      if (shop === '__new__') { alert('가게를 선택해주세요!'); return; }
 
       const newCheer = {
         id: Date.now(),
@@ -121,13 +244,11 @@
       cheers.unshift(newCheer);
       saveCheers();
       renderCheers();
+      updateCount();
+      renderHallOfFame(); // 랭킹 업데이트
 
-      // 입력 초기화
       document.getElementById('messageInput').value = '';
       document.getElementById('authorInput').value = '';
-
-      // 카운트 업데이트
-      updateCount();
     }
 
     function renderCheers() {
@@ -135,12 +256,7 @@
       container.innerHTML = '';
 
       if (cheers.length === 0) {
-        container.innerHTML = `
-          <div class="text-center py-16 text-zinc-400">
-            아직 응원이 없어요.<br>
-            첫 번째 응원을 남겨주세요! ❤️
-          </div>
-        `;
+        container.innerHTML = `<div class="text-center py-16 text-zinc-400">아직 응원이 없어요. 첫 번째 응원을 남겨주세요! ❤️</div>`;
         return;
       }
 
@@ -150,15 +266,12 @@
         card.innerHTML = `
           <div class="flex items-start gap-4">
             <div class="text-5xl flex-shrink-0 mt-1">${cheer.emoji}</div>
-            
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-3 mb-2">
                 <span class="font-bold text-pink-400">${cheer.shop}</span>
                 <span class="text-xs text-zinc-500">${cheer.time}</span>
               </div>
-              
               <div class="text-lg leading-relaxed">"${cheer.message}"</div>
-              
               <div class="text-sm text-zinc-400 mt-3">— ${cheer.author}</div>
             </div>
           </div>
@@ -172,7 +285,8 @@
     }
 
     function init() {
-      // 샘플 데이터 (처음 한 번만)
+      loadShops();
+
       if (cheers.length === 0) {
         cheers = [
           {id:1, shop:"호카호카", author:"염창러버", message:"케이크가 너무 귀엽고 맛있어요! 사장님 최고❤️", emoji:"❤️", time:"방금 전"},
@@ -186,6 +300,7 @@
 
       renderCheers();
       updateCount();
+      renderHallOfFame();
     }
 
     window.onload = init;
