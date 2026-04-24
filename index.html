@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>염창역 맛집 AI 포스터 메이커</title>
+  <style>
+    body { font-family: 'Malgun Gothic', sans-serif; background: #f8f9fa; padding: 20px; }
+    .poster { width: 380px; height: 500px; border: 8px solid #333; margin: 20px auto; position: relative; overflow: hidden; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    .title { font-size: 28px; font-weight: bold; text-align: center; margin-top: 30px; }
+    .subtitle { font-size: 18px; text-align: center; color: #555; }
+    .info { position: absolute; bottom: 60px; left: 0; right: 0; text-align: center; font-size: 15px; }
+    button { padding: 12px 20px; margin: 10px; background: #ff6b6b; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>🛠 염창역 맛집 AI 포스터 메이커</h1>
+  
+  <input type="text" id="shopName" placeholder="가게명 (예: 호카호카)" style="width:300px; padding:10px; font-size:16px;">
+  <br><br>
+  <textarea id="desc" placeholder="특징 한 줄 (예: 귀여운 생크림케이크와 쿠키 전문)" rows="3" style="width:300px;"></textarea>
+  <br><br>
+  <button onclick="makePoster()">포스터 만들기</button>
+
+  <div id="result"></div>
+
+  <script>
+    function makePoster() {
+      const name = document.getElementById('shopName').value || "맛집";
+      const desc = document.getElementById('desc').value || "염창역 인근";
+      
+      const html = `
+        <div class="poster" style="background: linear-gradient(135deg, #fff7e6, #ffe6e6);">
+          <div class="title" style="color:#e63939;">${name}</div>
+          <div class="subtitle" style="margin:20px 0;">염창역 맛집</div>
+          <div style="text-align:center; font-size:22px; margin:30px 0; color:#333;">${desc}</div>
+          <div class="info">
+            <p>📍 염창역 3번 출구 도보 5분</p>
+            <p>🚀 지금 바로 방문하세요!</p>
+          </div>
+          <div style="position:absolute; bottom:10px; left:0; right:0; text-align:center; font-size:12px; color:#888;">
+            Made with AI • 지역상권 응원
+          </div>
+        </div>
+      `;
+      document.getElementById('result').innerHTML = html;
+    }
+  </script>
+</body>
+</html>
