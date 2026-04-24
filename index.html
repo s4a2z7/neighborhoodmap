@@ -3,141 +3,327 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>염창역 상권 살리기 AI 포스터 메이커</title>
+  <title>Grok 4.3 • 염창역 상권 살리기</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { font-family: 'Malgun Gothic', system-ui, sans-serif; }
-    .poster { 
-      width: 380px; height: 520px; 
-      box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
-      background: white; 
-      position: relative; overflow: hidden;
-    }
+    .poster { width: 380px; height: 520px; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5); background-size: cover; background-position: center; position: relative; overflow: hidden; border-radius: 24px; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .poster:hover { transform: scale(1.03) rotate(1deg); }
+    .heart { animation: floatHeart 1.5s ease-out forwards; }
+    @keyframes floatHeart { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-120px) scale(0.6); opacity: 0; } }
   </style>
 </head>
-<body class="bg-gradient-to-br from-rose-50 to-orange-50 min-h-screen py-8">
-  <div class="max-w-6xl mx-auto px-4">
-    <h1 class="text-4xl font-bold text-center mb-2 text-rose-600">🛍 염창역 상권 살리기</h1>
-    <p class="text-center text-xl text-gray-600 mb-8">AI 포스터 메이커 - 누구나 쉽게 동네 가게 홍보하기</p>
+<body class="bg-zinc-950 text-white">
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+      <div>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl flex items-center justify-center text-xl">🛍</div>
+          <div>
+            <span class="text-4xl font-bold tracking-tighter">Grok 4.3</span>
+            <span class="text-pink-500 text-xl align-super ml-1">★</span>
+          </div>
+        </div>
+        <p class="text-zinc-400 text-lg -mt-1">염창역 상권 살리기 AI 포스터 메이커</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <div onclick="toggleDark()" class="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 rounded-2xl text-sm cursor-pointer flex items-center gap-2">
+          <span>🌙</span> <span class="hidden md:inline">다크모드</span>
+        </div>
+        <div class="bg-zinc-900 px-4 py-2 rounded-2xl text-sm flex items-center gap-2">
+          <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+          <span>실시간 접속자 <span id="liveCount">1,291</span>명</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 염창역 상권 현황 배너 (NEW in v4.5) -->
+    <div class="mb-10 bg-gradient-to-r from-zinc-900 to-zinc-800 border border-zinc-700 rounded-3xl p-8">
+      <div class="flex flex-col md:flex-row gap-8 items-center">
+        <div class="flex-1">
+          <div class="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-400 px-4 py-1 rounded-full text-sm mb-4">
+            <span>📰</span> <span class="font-semibold">2026년 최신 소식</span>
+          </div>
+          <h2 class="text-3xl font-bold leading-tight mb-4">염창역, 지금 큰 변화가 시작됩니다</h2>
+          <div class="text-zinc-300 space-y-3 text-[15px]">
+            <p>서울시 + SH가 추진하는 <span class="font-semibold text-white">역세권 활성화사업</span>이 본격화되고 있어요.</p>
+            <div class="flex flex-wrap gap-x-8 gap-y-2 text-sm">
+              <div>📍 목동 523-45 일대</div>
+              <div>🏢 지상 24층 · 414세대 아파트</div>
+              <div>🚀 청년창업 + 평생학습센터</div>
+            </div>
+            <p class="text-xs text-zinc-400">목2동 시장과 연계한 지역 상권 활성화가 핵심 목표입니다.</p>
+          </div>
+        </div>
+        <div class="text-center md:text-right">
+          <div class="text-6xl mb-2">🏗️</div>
+          <div class="text-sm text-emerald-400 font-medium">공공시행 첫 사례</div>
+        </div>
+      </div>
+    </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <!-- 입력 창 -->
-      <div class="bg-white p-8 rounded-3xl shadow-xl">
-        <h2 class="text-2xl font-bold mb-6">가게 정보 입력</h2>
-        
-        <div class="space-y-6">
+      <!-- 입력 -->
+      <div class="bg-zinc-900 rounded-3xl p-8 border border-zinc-800">
+        <div class="uppercase tracking-[3px] text-xs text-pink-500 mb-2">STEP 01</div>
+        <h2 class="text-3xl font-bold mb-6">포스터 만들기</h2>
+
+        <div class="space-y-5">
           <div>
-            <label class="block text-sm font-medium mb-2">가게명</label>
-            <input id="shopName" type="text" placeholder="예: 호카호카" 
-                   class="w-full px-4 py-3 border rounded-2xl text-lg">
+            <label class="text-sm text-zinc-400">가게명</label>
+            <input id="shopName" value="호카호카" class="mt-1 w-full bg-zinc-950 border border-zinc-700 focus:border-pink-500 px-5 py-4 rounded-2xl text-lg">
           </div>
-          
           <div>
-            <label class="block text-sm font-medium mb-2">한 줄 설명</label>
-            <input id="desc" type="text" placeholder="예: 귀여운 생크림케이크 전문" 
-                   class="w-full px-4 py-3 border rounded-2xl text-lg">
-          </div>
-          
-          <div>
-            <label class="block text-sm font-medium mb-2">가게 특징 (선택)</label>
-            <select id="type" class="w-full px-4 py-3 border rounded-2xl text-lg">
-              <option value="디저트">디저트 / 카페</option>
-              <option value="피자">피자 / 양식</option>
-              <option value="중식">중식</option>
-              <option value="한식">한식 / 건강식</option>
-              <option value="베이커리">베이커리</option>
-            </select>
+            <label class="text-sm text-zinc-400">한 줄 설명</label>
+            <input id="desc" value="귀여운 생크림케이크 전문점" class="mt-1 w-full bg-zinc-950 border border-zinc-700 focus:border-pink-500 px-5 py-4 rounded-2xl text-lg">
           </div>
 
-          <button onclick="generatePoster()" 
-                  class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 rounded-2xl text-xl transition">
-            🎨 포스터 생성하기
+          <div>
+            <label class="text-sm text-zinc-400">가게 사진 업로드</label>
+            <input type="file" id="photoUpload" accept="image/*" class="mt-1 w-full text-sm file:bg-zinc-800 file:text-white file:px-5 file:py-3 file:rounded-2xl file:border-0 hover:file:bg-zinc-700 cursor-pointer">
+          </div>
+
+          <div class="pt-2">
+            <button onclick="generatePoster()" 
+                    class="w-full py-4 bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-110 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 active:scale-[0.985]">
+              <span>✨ AI로 포스터 생성하기</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-6 border-t border-zinc-800">
+          <button onclick="shareToKakao()" 
+                  class="w-full py-3.5 bg-yellow-400 hover:bg-yellow-300 text-black font-bold rounded-2xl flex items-center justify-center gap-2">
+            <span>📤</span> <span>카카오톡으로 공유하기</span>
           </button>
         </div>
       </div>
 
-      <!-- 결과 미리보기 -->
-      <div class="flex justify-center items-start">
-        <div id="result" class="poster rounded-3xl overflow-hidden"></div>
+      <!-- 포스터 -->
+      <div class="flex justify-center">
+        <div id="result" class="poster bg-zinc-900 flex items-center justify-center text-zinc-500 text-sm border border-zinc-700">
+          포스터 미리보기
+        </div>
       </div>
     </div>
 
-    <!-- 미리 만들어진 예시 갤러리 -->
-    <div class="mt-16">
-      <h2 class="text-2xl font-bold mb-6 text-center">염창역 맛집 미리보기</h2>
+    <!-- 갤러리 -->
+    <div class="mt-12">
+      <div class="flex items-center justify-between mb-5 px-1">
+        <div class="font-bold text-xl">염창역 인기 가게</div>
+        <div class="text-sm text-zinc-500">클릭하면 바로 적용</div>
+      </div>
       <div class="grid grid-cols-2 md:grid-cols-5 gap-4" id="gallery"></div>
     </div>
+
+    <!-- 사장님 응원 담벼락 -->
+    <div class="mt-12 bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+      <div class="flex items-center gap-4 mb-6">
+        <div class="text-4xl">💖</div>
+        <div>
+          <div class="font-bold text-2xl">Grok 4.3 사장님 응원 담벼락</div>
+          <div class="text-zinc-400 text-sm">사장님들께 따뜻한 한 마디를 남겨주세요</div>
+        </div>
+        <div class="ml-auto bg-zinc-950 px-4 py-1.5 rounded-2xl text-sm flex items-center gap-2">
+          오늘의 응원 <span id="todayCount" class="font-mono text-emerald-400 font-bold">142</span>개
+        </div>
+      </div>
+
+      <div class="bg-zinc-950 border border-zinc-800 p-5 rounded-2xl mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+          <div class="md:col-span-3">
+            <select id="commentShop" class="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 rounded-2xl text-sm">
+              <option value="전체 상권">전체 상권</option>
+              <option value="호카호카">호카호카</option>
+              <option value="두아드">두아드</option>
+              <option value="올라피자">올라피자</option>
+              <option value="민차이">민차이</option>
+              <option value="비빕밥비빔">비빕밥비빔</option>
+            </select>
+          </div>
+          <div class="md:col-span-3">
+            <input id="commentAuthor" placeholder="이름 (선택)" class="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 rounded-2xl text-sm">
+          </div>
+          <div class="md:col-span-6 flex gap-3">
+            <input id="commentMessage" placeholder="사장님 오늘도 최고예요! ❤️" class="flex-1 bg-zinc-900 border border-zinc-700 px-4 py-3 rounded-2xl text-sm">
+            <button onclick="addCommentWithEffect()" 
+                    class="px-8 bg-white text-black font-bold rounded-2xl hover:bg-zinc-200 active:scale-95">남기기</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="commentList" class="space-y-3 max-h-[420px] overflow-y-auto pr-2 text-sm"></div>
+    </div>
+
+    <div class="text-center text-xs text-zinc-500 mt-16">Grok 4.3 • Made for 염창 상권 • AI 활용 사례 공모전</div>
   </div>
 
   <script>
-    const shops = [
-      {name: "호카호카", desc: "귀여운 생크림케이크 맛집", color: "from-pink-400 to-rose-300"},
-      {name: "두아드", desc: "프랑스식 파티세리", color: "from-amber-300 to-yellow-400"},
-      {name: "올라피자", desc: "화덕 나폴리 피자", color: "from-red-500 to-orange-500"},
-      {name: "민차이", desc: "시원한 중식당", color: "from-red-600 to-rose-700"},
-      {name: "비빕밥비빔", desc: "든든한 건강 비빔밥", color: "from-emerald-500 to-teal-400"}
-    ];
+    function init() {
+      tailwind.config = { darkMode: 'class' };
+      document.documentElement.classList.add('dark');
+
+      if (!localStorage.getItem('yeomchang_v45')) {
+        localStorage.setItem('yeomchang_v45', JSON.stringify([
+          {id:1, shop:"호카호카", author:"염창러버", message:"케이크가 너무 귀엽고 맛있어요! 사장님 최고❤️", time:"방금 전"},
+          {id:2, shop:"두아드", author:"목동주민", message:"마들렌 진짜 미쳤어요... 매일 생각남", time:"1시간 전"},
+          {id:3, shop:"올라피자", author:"피자덕후", message:"화덕피자 중에 여기 진짜 1등!", time:"어제"},
+          {id:4, shop:"민차이", author:"중식러버", message:"짬뽕 국물이 시원하고 맛있어요", time:"어제"},
+        ]));
+      }
+
+      createGallery();
+      renderComments();
+      updateLiveCount();
+      setInterval(updateLiveCount, 15000);
+    }
+
+    function updateLiveCount() {
+      const el = document.getElementById('liveCount');
+      el.textContent = (1291 + Math.floor(Math.random() * 15)).toLocaleString();
+    }
+
+    function createGallery() {
+      const container = document.getElementById('gallery');
+      const shops = [
+        {n:"호카호카", d:"생크림케이크", img:"https://picsum.photos/id/1015/600/400"},
+        {n:"두아드", d:"프랑스 파티세리", img:"https://picsum.photos/id/292/600/400"},
+        {n:"올라피자", d:"화덕 나폴리", img:"https://picsum.photos/id/1060/600/400"},
+        {n:"민차이", d:"시원한 중식", img:"https://picsum.photos/id/431/600/400"},
+        {n:"비빕밥비빔", d:"건강 비빔밥", img:"https://picsum.photos/id/1080/600/400"}
+      ];
+      container.innerHTML = shops.map(s => `
+        <div onclick="quickApply('${s.n}', '${s.d}', '${s.img}')" 
+             class="group relative overflow-hidden rounded-3xl aspect-[4/3] cursor-pointer border border-zinc-800">
+          <img src="${s.img}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+          <div class="absolute bottom-0 p-4 text-white">
+            <div class="font-bold text-lg">${s.n}</div>
+            <div class="text-xs opacity-75">${s.d}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function quickApply(name, desc, img) {
+      document.getElementById('shopName').value = name;
+      document.getElementById('desc').value = desc;
+      createPoster(name, desc, img);
+      window.scrollTo({top: 180, behavior: 'smooth'});
+    }
+
+    function createPoster(name, desc, bg) {
+      const el = document.getElementById('result');
+      el.innerHTML = `
+        <div class="poster w-full h-full" style="background-image: url('${bg}')">
+          <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/60 to-black/85"></div>
+          <div class="absolute inset-0 p-8 flex flex-col justify-end text-white">
+            <div class="text-[42px] font-black tracking-tighter leading-none mb-3">${name}</div>
+            <div class="text-xl mb-8 opacity-90">${desc}</div>
+            
+            <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur px-5 py-2 rounded-2xl w-fit mb-6">
+              <span class="text-lg">염창역 맛집</span>
+            </div>
+            
+            <div class="text-sm space-y-1 opacity-90">
+              <div>📍 염창역 3번 출구 도보 5분</div>
+              <div>⭐ 지금 바로 방문하세요!</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
 
     function generatePoster() {
       const name = document.getElementById('shopName').value || "염창 맛집";
       const desc = document.getElementById('desc').value || "염창역 인근";
-      const type = document.getElementById('type').value;
+      const file = document.getElementById('photoUpload').files[0];
 
-      const html = `
-        <div class="h-full bg-gradient-to-br ${shops.find(s => s.name === name)?.color || 'from-rose-400 to-pink-500'} p-6 flex flex-col justify-between text-white">
-          <div>
-            <div class="text-5xl font-bold tracking-tighter mb-1">${name}</div>
-            <div class="text-xl opacity-90">${desc}</div>
-          </div>
-          
-          <div class="text-center my-8">
-            <div class="inline-block bg-white/20 backdrop-blur-md px-8 py-4 rounded-3xl text-2xl font-medium">
-              염창역 맛집
-            </div>
-          </div>
-          
-          <div class="space-y-3 text-sm">
-            <div class="flex items-center gap-3">
-              📍 <span>염창역 3번 출구 도보 5분</span>
-            </div>
-            <div class="flex items-center gap-3">
-              ⭐ <span>지금 바로 방문하세요!</span>
-            </div>
-          </div>
-          
-          <div class="text-xs opacity-70 text-center mt-8">
-            Made with ❤️ for 염창 상권 • AI 활용 사례
-          </div>
-        </div>
-      `;
-      document.getElementById('result').innerHTML = html;
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => createPoster(name, desc, e.target.result);
+        reader.readAsDataURL(file);
+      } else {
+        createPoster(name, desc, "https://picsum.photos/id/1015/800/1000");
+      }
     }
 
-    // 갤러리 생성
-    function createGallery() {
-      const gallery = document.getElementById('gallery');
-      shops.forEach(shop => {
-        const div = document.createElement('div');
-        div.className = `poster rounded-3xl overflow-hidden cursor-pointer hover:scale-105 transition`;
-        div.innerHTML = `
-          <div class="h-full bg-gradient-to-br ${shop.color} p-6 flex flex-col justify-between text-white text-center">
-            <div class="mt-auto">
-              <div class="text-3xl font-bold mb-2">${shop.name}</div>
-              <div class="text-lg">${shop.desc}</div>
-            </div>
-            <div class="text-xs mt-8 opacity-75">클릭하면 적용</div>
-          </div>
-        `;
-        div.onclick = () => {
-          document.getElementById('shopName').value = shop.name;
-          document.getElementById('desc').value = shop.desc;
-          generatePoster();
-        };
-        gallery.appendChild(div);
+    function shareToKakao() {
+      const msg = "Grok 4.3으로 만든 염창역 포스터 메이커예요!\n사장님들 응원하러 와주세요 ❤️";
+      navigator.clipboard.writeText(msg + "\n" + location.href).then(() => {
+        alert("✅ 카카오톡에 붙여넣기 완료!");
       });
     }
 
-    window.onload = createGallery;
+    function addCommentWithEffect() {
+      const shop = document.getElementById('commentShop').value;
+      const author = document.getElementById('commentAuthor').value || "익명";
+      const msg = document.getElementById('commentMessage').value.trim();
+      if (!msg) return alert("메시지를 입력해주세요!");
+
+      const newC = {
+        id: Date.now(),
+        shop,
+        author,
+        message: msg,
+        time: "방금 전"
+      };
+
+      let data = JSON.parse(localStorage.getItem('yeomchang_v45') || '[]');
+      data.unshift(newC);
+      localStorage.setItem('yeomchang_v45', JSON.stringify(data));
+
+      createHeartBurst();
+      renderComments();
+      document.getElementById('commentMessage').value = '';
+      document.getElementById('todayCount').textContent = (parseInt(document.getElementById('todayCount').textContent) + 1);
+    }
+
+    function createHeartBurst() {
+      const container = document.getElementById('commentList');
+      for (let i = 0; i < 8; i++) {
+        const heart = document.createElement('div');
+        heart.className = `heart absolute text-2xl pointer-events-none`;
+        heart.style.left = Math.random() * 80 + '%';
+        heart.style.bottom = '20px';
+        heart.style.color = ['#f43f5e', '#fb7185', '#fda4af'][Math.floor(Math.random()*3)];
+        heart.innerHTML = ['❤️','💖','💗','💓'][Math.floor(Math.random()*4)];
+        container.appendChild(heart);
+        setTimeout(() => heart.remove(), 1600);
+      }
+    }
+
+    function renderComments() {
+      const container = document.getElementById('commentList');
+      const data = JSON.parse(localStorage.getItem('yeomchang_v45') || '[]');
+      
+      container.innerHTML = data.map(c => `
+        <div class="bg-zinc-950 border border-zinc-800 px-5 py-4 rounded-2xl flex gap-4 items-start">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 text-xs mb-1">
+              <span class="font-semibold text-pink-400">${c.shop}</span>
+              <span class="text-zinc-500">· ${c.time}</span>
+            </div>
+            <div class="text-zinc-300">"${c.message}"</div>
+            <div class="text-[10px] text-zinc-500 mt-1.5">— ${c.author}</div>
+          </div>
+          <button onclick="deleteComment(${c.id})" class="text-zinc-600 hover:text-red-400 text-xl leading-none mt-0.5">×</button>
+        </div>
+      `).join('');
+    }
+
+    function deleteComment(id) {
+      let data = JSON.parse(localStorage.getItem('yeomchang_v45') || '[]');
+      data = data.filter(c => c.id !== id);
+      localStorage.setItem('yeomchang_v45', JSON.stringify(data));
+      renderComments();
+    }
+
+    function toggleDark() {
+      document.documentElement.classList.toggle('dark');
+    }
+
+    window.onload = init;
   </script>
 </body>
 </html>
