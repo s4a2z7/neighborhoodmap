@@ -5,83 +5,85 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>염창역 최애 가게 응원 릴레이</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background-color: #f8f1e9; }
+    .soft-card { background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.06); }
+  </style>
 </head>
-<body class="bg-zinc-950 text-white">
+<body class="text-zinc-800">
   <div class="max-w-4xl mx-auto px-4 py-8">
     <!-- Header -->
     <div class="text-center mb-8">
       <div class="flex justify-center mb-3">
-        <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-3xl flex items-center justify-center text-3xl">❤️</div>
+        <div class="w-12 h-12 bg-gradient-to-br from-rose-400 to-pink-400 rounded-3xl flex items-center justify-center text-3xl shadow">❤️</div>
       </div>
-      <h1 class="text-4xl font-bold tracking-tighter">염창역 최애 가게 응원 릴레이</h1>
-      <p class="text-zinc-400 mt-2">내가 사랑하는 염창역 가게에 따뜻한 응원을 남겨주세요</p>
+      <h1 class="text-4xl font-bold tracking-tighter text-zinc-900">염창역 최애 가게 응원 릴레이</h1>
+      <p class="text-zinc-500 mt-2">내가 사랑하는 염창역 가게에 따뜻한 응원을 남겨주세요</p>
     </div>
 
     <!-- 목2동 주민센터 행사 배너 -->
-    <div class="mb-10 bg-gradient-to-r from-emerald-900/80 to-teal-900/80 border border-emerald-700 rounded-3xl p-8">
+    <div class="mb-10 bg-white border border-emerald-200 rounded-3xl p-8 shadow-sm">
       <div class="flex flex-col md:flex-row items-center gap-6">
         <div class="flex-1">
-          <div class="inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-300 px-4 py-1 rounded-full text-sm mb-3">
+          <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-600 px-4 py-1 rounded-full text-sm mb-3">
             <span>📅</span> <span class="font-semibold">5월 가정의 달 행사</span>
           </div>
-          <h2 class="text-2xl font-bold">목2동 주민센터와 함께하는 동네 행사</h2>
-          <p class="text-emerald-100 mt-2">염창역 인근 주민 + 소상공인이 함께 참여하는 따뜻한 행사예요.</p>
+          <h2 class="text-2xl font-bold text-zinc-900">목2동 주민센터와 함께하는 동네 행사</h2>
+          <p class="text-zinc-600 mt-2">염창역 인근 주민 + 소상공인이 함께 참여하는 따뜻한 행사예요.</p>
         </div>
         <div class="text-center">
           <div class="text-5xl mb-1">🏠</div>
-          <div class="text-xs text-emerald-300">목2동 주민센터 주관</div>
+          <div class="text-xs text-emerald-600">목2동 주민센터 주관</div>
         </div>
       </div>
     </div>
 
-    <!-- 명예의 전당 (NEW) -->
+    <!-- 명예의 전당 -->
     <div class="mb-10">
       <div class="flex items-center gap-3 mb-5 px-1">
         <div class="text-3xl">🏆</div>
         <div>
-          <div class="font-bold text-2xl">이번주 명예의 전당</div>
-          <div class="text-sm text-zinc-400">응원 수 기준 실시간 랭킹</div>
+          <div class="font-bold text-2xl text-zinc-900">이번주 명예의 전당</div>
+          <div class="text-sm text-zinc-500">응원 수 기준 실시간 랭킹</div>
         </div>
       </div>
-      
       <div id="hallOfFame" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
     </div>
 
     <!-- 응원 메시지 작성 폼 -->
-    <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8 mb-10">
-      <h3 class="font-bold text-xl mb-5 flex items-center gap-2">
+    <div class="soft-card border border-zinc-200 rounded-3xl p-8 mb-10">
+      <h3 class="font-bold text-xl mb-5 flex items-center gap-2 text-zinc-900">
         <span>✍️</span> 응원 메시지 남기기
       </h3>
       
       <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
         <div class="md:col-span-5">
-          <label class="text-sm text-zinc-400 block mb-1.5">최애 가게</label>
+          <label class="text-sm text-zinc-500 block mb-1.5">최애 가게</label>
           <div class="flex gap-2">
             <select id="shopSelect" onchange="handleShopChange()" 
-                    class="flex-1 bg-zinc-950 border border-zinc-700 px-4 py-3 rounded-2xl">
-              <!-- JS로 동적 생성 -->
+                    class="flex-1 bg-white border border-zinc-300 px-4 py-3 rounded-2xl text-sm">
             </select>
           </div>
           
           <div id="newShopInput" class="hidden mt-3">
             <div class="flex gap-2">
-              <input id="newShopName" placeholder="가게 이름" class="flex-1 bg-zinc-950 border border-zinc-700 px-4 py-2.5 rounded-2xl text-sm">
-              <input id="newShopDesc" placeholder="간단 설명" class="flex-1 bg-zinc-950 border border-zinc-700 px-4 py-2.5 rounded-2xl text-sm">
-              <button onclick="addNewShop()" class="px-5 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold rounded-2xl">추가</button>
+              <input id="newShopName" placeholder="가게 이름" class="flex-1 bg-white border border-zinc-300 px-4 py-2.5 rounded-2xl text-sm">
+              <input id="newShopDesc" placeholder="간단 설명" class="flex-1 bg-white border border-zinc-300 px-4 py-2.5 rounded-2xl text-sm">
+              <button onclick="addNewShop()" class="px-5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold rounded-2xl">추가</button>
             </div>
           </div>
         </div>
         
         <div class="md:col-span-3">
-          <label class="text-sm text-zinc-400 block mb-1.5">이름 (선택)</label>
-          <input id="authorInput" placeholder="익명" class="w-full bg-zinc-950 border border-zinc-700 px-4 py-3 rounded-2xl">
+          <label class="text-sm text-zinc-500 block mb-1.5">이름 (선택)</label>
+          <input id="authorInput" placeholder="익명" class="w-full bg-white border border-zinc-300 px-4 py-3 rounded-2xl">
         </div>
         
         <div class="md:col-span-12">
-          <label class="text-sm text-zinc-400 block mb-1.5">응원 메시지</label>
+          <label class="text-sm text-zinc-500 block mb-1.5">응원 메시지</label>
           <div class="flex gap-3">
-            <input id="messageInput" placeholder="사장님 항상 맛있게 해주셔서 감사해요! ❤️" class="flex-1 bg-zinc-950 border border-zinc-700 px-4 py-3 rounded-2xl">
-            <button onclick="addCheer()" class="px-8 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold rounded-2xl hover:brightness-110">응원하기</button>
+            <input id="messageInput" placeholder="사장님 항상 맛있게 해주셔서 감사해요! ❤️" class="flex-1 bg-white border border-zinc-300 px-4 py-3 rounded-2xl">
+            <button onclick="addCheer()" class="px-8 bg-gradient-to-r from-rose-400 to-pink-400 text-white font-bold rounded-2xl hover:brightness-105">응원하기</button>
           </div>
         </div>
       </div>
@@ -90,16 +92,16 @@
     <!-- 응원 릴레이 -->
     <div>
       <div class="flex items-center justify-between mb-6 px-1">
-        <div class="font-bold text-2xl flex items-center gap-2">
+        <div class="font-bold text-2xl flex items-center gap-2 text-zinc-900">
           <span>💌</span> 응원 릴레이
         </div>
-        <div class="text-sm text-zinc-400">총 <span id="totalCount" class="font-mono text-pink-400 font-bold">0</span>개의 응원</div>
+        <div class="text-sm text-zinc-500">총 <span id="totalCount" class="font-mono text-rose-500 font-bold">0</span>개의 응원</div>
       </div>
 
       <div id="cheerList" class="space-y-4"></div>
     </div>
 
-    <div class="text-center text-xs text-zinc-500 mt-16">Made for 염창 상권 • AI 활용 사례 공모전</div>
+    <div class="text-center text-xs text-zinc-400 mt-16">Made for 염창 상권 • AI 활용 사례 공모전</div>
   </div>
 
   <script>
@@ -180,23 +182,15 @@
 
     function calculateRankings() {
       const counts = {};
-      
-      // 기본 + 커스텀 가게 모두 카운트
       const allShops = [...defaultShops, ...customShops];
       allShops.forEach(shop => counts[shop.name] = 0);
 
       cheers.forEach(cheer => {
-        if (counts[cheer.shop] !== undefined) {
-          counts[cheer.shop]++;
-        } else {
-          counts[cheer.shop] = 1; // 새로 추가된 가게
-        }
+        if (counts[cheer.shop] !== undefined) counts[cheer.shop]++;
+        else counts[cheer.shop] = 1;
       });
 
-      // 랭킹 정렬
-      return Object.entries(counts)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 5); // 상위 5개
+      return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 5);
     }
 
     function renderHallOfFame() {
@@ -206,18 +200,17 @@
 
       rankings.forEach(([shopName, count], index) => {
         const isFirst = index === 0;
-        
         const card = document.createElement('div');
-        card.className = `rounded-3xl p-5 border ${isFirst ? 'border-yellow-400 bg-yellow-900/30 scale-[1.02]' : 'border-zinc-700 bg-zinc-900'}`;
+        card.className = `rounded-3xl p-5 border ${isFirst ? 'border-yellow-400 bg-yellow-50' : 'border-zinc-200 bg-white'}`;
         
         card.innerHTML = `
           <div class="flex items-center gap-3">
             <div class="text-4xl">${isFirst ? '👑' : (index === 1 ? '🥈' : index === 2 ? '🥉' : '🏅')}</div>
             <div class="flex-1">
-              <div class="font-bold ${isFirst ? 'text-yellow-300 text-xl' : 'text-lg'}">${shopName}</div>
-              <div class="text-sm ${isFirst ? 'text-yellow-400' : 'text-zinc-400'}">${count}개의 응원</div>
+              <div class="font-bold ${isFirst ? 'text-yellow-600 text-xl' : 'text-lg'}">${shopName}</div>
+              <div class="text-sm ${isFirst ? 'text-yellow-500' : 'text-zinc-500'}">${count}개의 응원</div>
             </div>
-            ${isFirst ? `<div class="text-xs bg-yellow-400 text-black px-2 py-0.5 rounded font-bold">1위</div>` : ''}
+            ${isFirst ? `<div class="text-xs bg-yellow-400 text-yellow-900 px-2 py-0.5 rounded font-bold">1위</div>` : ''}
           </div>
         `;
         container.appendChild(card);
@@ -245,7 +238,7 @@
       saveCheers();
       renderCheers();
       updateCount();
-      renderHallOfFame(); // 랭킹 업데이트
+      renderHallOfFame();
 
       document.getElementById('messageInput').value = '';
       document.getElementById('authorInput').value = '';
@@ -262,16 +255,16 @@
 
       cheers.forEach(cheer => {
         const card = document.createElement('div');
-        card.className = `bg-zinc-900 border border-zinc-700 rounded-3xl p-6 hover:border-pink-500/50 transition`;
+        card.className = `soft-card border border-zinc-200 rounded-3xl p-6 hover:border-pink-200 transition`;
         card.innerHTML = `
           <div class="flex items-start gap-4">
             <div class="text-5xl flex-shrink-0 mt-1">${cheer.emoji}</div>
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-3 mb-2">
-                <span class="font-bold text-pink-400">${cheer.shop}</span>
-                <span class="text-xs text-zinc-500">${cheer.time}</span>
+                <span class="font-bold text-rose-500">${cheer.shop}</span>
+                <span class="text-xs text-zinc-400">${cheer.time}</span>
               </div>
-              <div class="text-lg leading-relaxed">"${cheer.message}"</div>
+              <div class="text-lg leading-relaxed text-zinc-700">"${cheer.message}"</div>
               <div class="text-sm text-zinc-400 mt-3">— ${cheer.author}</div>
             </div>
           </div>
