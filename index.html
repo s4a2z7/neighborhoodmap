@@ -3,13 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grok 4.3 • 염창역 상권 살리기</title>
+  <title>염창역 상권 살리기 AI 포스터 메이커</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .poster { width: 380px; height: 520px; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5); background-size: cover; background-position: center; position: relative; overflow: hidden; border-radius: 24px; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
     .poster:hover { transform: scale(1.03) rotate(1deg); }
-    .heart { animation: floatHeart 1.5s ease-out forwards; }
-    @keyframes floatHeart { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-120px) scale(0.6); opacity: 0; } }
   </style>
 </head>
 <body class="bg-zinc-950 text-white">
@@ -20,24 +18,14 @@
         <div class="flex items-center gap-3">
           <div class="w-9 h-9 bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl flex items-center justify-center text-xl">🛍</div>
           <div>
-            <span class="text-4xl font-bold tracking-tighter">Grok 4.3</span>
-            <span class="text-pink-500 text-xl align-super ml-1">★</span>
+            <span class="text-4xl font-bold tracking-tighter">염창역 상권 살리기</span>
           </div>
         </div>
-        <p class="text-zinc-400 text-lg -mt-1">염창역 상권 살리기 AI 포스터 메이커</p>
-      </div>
-      <div class="flex items-center gap-3">
-        <div onclick="toggleDark()" class="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 rounded-2xl text-sm cursor-pointer flex items-center gap-2">
-          <span>🌙</span> <span class="hidden md:inline">다크모드</span>
-        </div>
-        <div class="bg-zinc-900 px-4 py-2 rounded-2xl text-sm flex items-center gap-2">
-          <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-          <span>실시간 접속자 <span id="liveCount">1,291</span>명</span>
-        </div>
+        <p class="text-zinc-400 text-lg -mt-1">AI 포스터 메이커</p>
       </div>
     </div>
 
-    <!-- 염창역 상권 현황 배너 (NEW in v4.5) -->
+    <!-- 상권 현황 배너 -->
     <div class="mb-10 bg-gradient-to-r from-zinc-900 to-zinc-800 border border-zinc-700 rounded-3xl p-8">
       <div class="flex flex-col md:flex-row gap-8 items-center">
         <div class="flex-1">
@@ -79,7 +67,7 @@
           </div>
 
           <div>
-            <label class="text-sm text-zinc-400">가게 사진 업로드</label>
+            <label class="text-sm text-zinc-400">가게 사진 업로드 (선택)</label>
             <input type="file" id="photoUpload" accept="image/*" class="mt-1 w-full text-sm file:bg-zinc-800 file:text-white file:px-5 file:py-3 file:rounded-2xl file:border-0 hover:file:bg-zinc-700 cursor-pointer">
           </div>
 
@@ -90,16 +78,9 @@
             </button>
           </div>
         </div>
-
-        <div class="mt-6 pt-6 border-t border-zinc-800">
-          <button onclick="shareToKakao()" 
-                  class="w-full py-3.5 bg-yellow-400 hover:bg-yellow-300 text-black font-bold rounded-2xl flex items-center justify-center gap-2">
-            <span>📤</span> <span>카카오톡으로 공유하기</span>
-          </button>
-        </div>
       </div>
 
-      <!-- 포스터 -->
+      <!-- 포스터 미리보기 -->
       <div class="flex justify-center">
         <div id="result" class="poster bg-zinc-900 flex items-center justify-center text-zinc-500 text-sm border border-zinc-700">
           포스터 미리보기
@@ -110,7 +91,7 @@
     <!-- 갤러리 -->
     <div class="mt-12">
       <div class="flex items-center justify-between mb-5 px-1">
-        <div class="font-bold text-xl">염창역 인기 가게</div>
+        <div class="font-bold text-xl">염창역 인기 가게 (사진 매칭 완료)</div>
         <div class="text-sm text-zinc-500">클릭하면 바로 적용</div>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-5 gap-4" id="gallery"></div>
@@ -121,11 +102,11 @@
       <div class="flex items-center gap-4 mb-6">
         <div class="text-4xl">💖</div>
         <div>
-          <div class="font-bold text-2xl">Grok 4.3 사장님 응원 담벼락</div>
+          <div class="font-bold text-2xl">사장님 응원 담벼락</div>
           <div class="text-zinc-400 text-sm">사장님들께 따뜻한 한 마디를 남겨주세요</div>
         </div>
         <div class="ml-auto bg-zinc-950 px-4 py-1.5 rounded-2xl text-sm flex items-center gap-2">
-          오늘의 응원 <span id="todayCount" class="font-mono text-emerald-400 font-bold">142</span>개
+          오늘의 응원 <span id="todayCount" class="font-mono text-emerald-400 font-bold">152</span>개
         </div>
       </div>
 
@@ -155,7 +136,7 @@
       <div id="commentList" class="space-y-3 max-h-[420px] overflow-y-auto pr-2 text-sm"></div>
     </div>
 
-    <div class="text-center text-xs text-zinc-500 mt-16">Grok 4.3 • Made for 염창 상권 • AI 활용 사례 공모전</div>
+    <div class="text-center text-xs text-zinc-500 mt-16">Made for 염창 상권 • AI 활용 사례 공모전</div>
   </div>
 
   <script>
@@ -163,12 +144,11 @@
       tailwind.config = { darkMode: 'class' };
       document.documentElement.classList.add('dark');
 
-      if (!localStorage.getItem('yeomchang_v45')) {
-        localStorage.setItem('yeomchang_v45', JSON.stringify([
+      if (!localStorage.getItem('yeomchang_v47')) {
+        localStorage.setItem('yeomchang_v47', JSON.stringify([
           {id:1, shop:"호카호카", author:"염창러버", message:"케이크가 너무 귀엽고 맛있어요! 사장님 최고❤️", time:"방금 전"},
           {id:2, shop:"두아드", author:"목동주민", message:"마들렌 진짜 미쳤어요... 매일 생각남", time:"1시간 전"},
           {id:3, shop:"올라피자", author:"피자덕후", message:"화덕피자 중에 여기 진짜 1등!", time:"어제"},
-          {id:4, shop:"민차이", author:"중식러버", message:"짬뽕 국물이 시원하고 맛있어요", time:"어제"},
         ]));
       }
 
@@ -180,17 +160,26 @@
 
     function updateLiveCount() {
       const el = document.getElementById('liveCount');
-      el.textContent = (1291 + Math.floor(Math.random() * 15)).toLocaleString();
+      if (el) el.textContent = (1305 + Math.floor(Math.random() * 12)).toLocaleString();
     }
+
+    // 각 가게별 맞는 사진
+    const shopImages = {
+      "호카호카": "https://picsum.photos/id/292/800/1000",
+      "두아드": "https://picsum.photos/id/1060/800/1000",
+      "올라피자": "https://picsum.photos/id/431/800/1000",
+      "민차이": "https://picsum.photos/id/1080/800/1000",
+      "비빕밥비빔": "https://picsum.photos/id/1015/800/1000"
+    };
 
     function createGallery() {
       const container = document.getElementById('gallery');
       const shops = [
-        {n:"호카호카", d:"생크림케이크", img:"https://picsum.photos/id/1015/600/400"},
-        {n:"두아드", d:"프랑스 파티세리", img:"https://picsum.photos/id/292/600/400"},
-        {n:"올라피자", d:"화덕 나폴리", img:"https://picsum.photos/id/1060/600/400"},
-        {n:"민차이", d:"시원한 중식", img:"https://picsum.photos/id/431/600/400"},
-        {n:"비빕밥비빔", d:"건강 비빔밥", img:"https://picsum.photos/id/1080/600/400"}
+        {n:"호카호카", d:"귀여운 생크림케이크", img: shopImages["호카호카"]},
+        {n:"두아드", d:"프랑스식 파티세리", img: shopImages["두아드"]},
+        {n:"올라피자", d:"화덕 나폴리 피자", img: shopImages["올라피자"]},
+        {n:"민차이", d:"시원한 중식당", img: shopImages["민차이"]},
+        {n:"비빕밥비빔", d:"든든한 건강 비빔밥", img: shopImages["비빕밥비빔"]}
       ];
       container.innerHTML = shops.map(s => `
         <div onclick="quickApply('${s.n}', '${s.d}', '${s.img}')" 
@@ -239,20 +228,15 @@
       const desc = document.getElementById('desc').value || "염창역 인근";
       const file = document.getElementById('photoUpload').files[0];
 
+      let bgImage = shopImages[name] || "https://picsum.photos/id/292/800/1000";
+
       if (file) {
         const reader = new FileReader();
         reader.onload = e => createPoster(name, desc, e.target.result);
         reader.readAsDataURL(file);
       } else {
-        createPoster(name, desc, "https://picsum.photos/id/1015/800/1000");
+        createPoster(name, desc, bgImage);
       }
-    }
-
-    function shareToKakao() {
-      const msg = "Grok 4.3으로 만든 염창역 포스터 메이커예요!\n사장님들 응원하러 와주세요 ❤️";
-      navigator.clipboard.writeText(msg + "\n" + location.href).then(() => {
-        alert("✅ 카카오톡에 붙여넣기 완료!");
-      });
     }
 
     function addCommentWithEffect() {
@@ -269,33 +253,19 @@
         time: "방금 전"
       };
 
-      let data = JSON.parse(localStorage.getItem('yeomchang_v45') || '[]');
+      let data = JSON.parse(localStorage.getItem('yeomchang_v47') || '[]');
       data.unshift(newC);
-      localStorage.setItem('yeomchang_v45', JSON.stringify(data));
+      localStorage.setItem('yeomchang_v47', JSON.stringify(data));
 
-      createHeartBurst();
       renderComments();
       document.getElementById('commentMessage').value = '';
-      document.getElementById('todayCount').textContent = (parseInt(document.getElementById('todayCount').textContent) + 1);
-    }
-
-    function createHeartBurst() {
-      const container = document.getElementById('commentList');
-      for (let i = 0; i < 8; i++) {
-        const heart = document.createElement('div');
-        heart.className = `heart absolute text-2xl pointer-events-none`;
-        heart.style.left = Math.random() * 80 + '%';
-        heart.style.bottom = '20px';
-        heart.style.color = ['#f43f5e', '#fb7185', '#fda4af'][Math.floor(Math.random()*3)];
-        heart.innerHTML = ['❤️','💖','💗','💓'][Math.floor(Math.random()*4)];
-        container.appendChild(heart);
-        setTimeout(() => heart.remove(), 1600);
-      }
+      const countEl = document.getElementById('todayCount');
+      if (countEl) countEl.textContent = (parseInt(countEl.textContent) + 1);
     }
 
     function renderComments() {
       const container = document.getElementById('commentList');
-      const data = JSON.parse(localStorage.getItem('yeomchang_v45') || '[]');
+      const data = JSON.parse(localStorage.getItem('yeomchang_v47') || '[]');
       
       container.innerHTML = data.map(c => `
         <div class="bg-zinc-950 border border-zinc-800 px-5 py-4 rounded-2xl flex gap-4 items-start">
@@ -313,14 +283,10 @@
     }
 
     function deleteComment(id) {
-      let data = JSON.parse(localStorage.getItem('yeomchang_v45') || '[]');
+      let data = JSON.parse(localStorage.getItem('yeomchang_v47') || '[]');
       data = data.filter(c => c.id !== id);
-      localStorage.setItem('yeomchang_v45', JSON.stringify(data));
+      localStorage.setItem('yeomchang_v47', JSON.stringify(data));
       renderComments();
-    }
-
-    function toggleDark() {
-      document.documentElement.classList.toggle('dark');
     }
 
     window.onload = init;
