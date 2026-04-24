@@ -2,48 +2,142 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>염창역 맛집 AI 포스터 메이커</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>염창역 상권 살리기 AI 포스터 메이커</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { font-family: 'Malgun Gothic', sans-serif; background: #f8f9fa; padding: 20px; }
-    .poster { width: 380px; height: 500px; border: 8px solid #333; margin: 20px auto; position: relative; overflow: hidden; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-    .title { font-size: 28px; font-weight: bold; text-align: center; margin-top: 30px; }
-    .subtitle { font-size: 18px; text-align: center; color: #555; }
-    .info { position: absolute; bottom: 60px; left: 0; right: 0; text-align: center; font-size: 15px; }
-    button { padding: 12px 20px; margin: 10px; background: #ff6b6b; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
+    body { font-family: 'Malgun Gothic', system-ui, sans-serif; }
+    .poster { 
+      width: 380px; height: 520px; 
+      box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+      background: white; 
+      position: relative; overflow: hidden;
+    }
   </style>
 </head>
-<body>
-  <h1>🛠 염창역 맛집 AI 포스터 메이커</h1>
-  
-  <input type="text" id="shopName" placeholder="가게명 (예: 호카호카)" style="width:300px; padding:10px; font-size:16px;">
-  <br><br>
-  <textarea id="desc" placeholder="특징 한 줄 (예: 귀여운 생크림케이크와 쿠키 전문)" rows="3" style="width:300px;"></textarea>
-  <br><br>
-  <button onclick="makePoster()">포스터 만들기</button>
+<body class="bg-gradient-to-br from-rose-50 to-orange-50 min-h-screen py-8">
+  <div class="max-w-6xl mx-auto px-4">
+    <h1 class="text-4xl font-bold text-center mb-2 text-rose-600">🛍 염창역 상권 살리기</h1>
+    <p class="text-center text-xl text-gray-600 mb-8">AI 포스터 메이커 - 누구나 쉽게 동네 가게 홍보하기</p>
 
-  <div id="result"></div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- 입력 창 -->
+      <div class="bg-white p-8 rounded-3xl shadow-xl">
+        <h2 class="text-2xl font-bold mb-6">가게 정보 입력</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium mb-2">가게명</label>
+            <input id="shopName" type="text" placeholder="예: 호카호카" 
+                   class="w-full px-4 py-3 border rounded-2xl text-lg">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-2">한 줄 설명</label>
+            <input id="desc" type="text" placeholder="예: 귀여운 생크림케이크 전문" 
+                   class="w-full px-4 py-3 border rounded-2xl text-lg">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-2">가게 특징 (선택)</label>
+            <select id="type" class="w-full px-4 py-3 border rounded-2xl text-lg">
+              <option value="디저트">디저트 / 카페</option>
+              <option value="피자">피자 / 양식</option>
+              <option value="중식">중식</option>
+              <option value="한식">한식 / 건강식</option>
+              <option value="베이커리">베이커리</option>
+            </select>
+          </div>
+
+          <button onclick="generatePoster()" 
+                  class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 rounded-2xl text-xl transition">
+            🎨 포스터 생성하기
+          </button>
+        </div>
+      </div>
+
+      <!-- 결과 미리보기 -->
+      <div class="flex justify-center items-start">
+        <div id="result" class="poster rounded-3xl overflow-hidden"></div>
+      </div>
+    </div>
+
+    <!-- 미리 만들어진 예시 갤러리 -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold mb-6 text-center">염창역 맛집 미리보기</h2>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4" id="gallery"></div>
+    </div>
+  </div>
 
   <script>
-    function makePoster() {
-      const name = document.getElementById('shopName').value || "맛집";
+    const shops = [
+      {name: "호카호카", desc: "귀여운 생크림케이크 맛집", color: "from-pink-400 to-rose-300"},
+      {name: "두아드", desc: "프랑스식 파티세리", color: "from-amber-300 to-yellow-400"},
+      {name: "올라피자", desc: "화덕 나폴리 피자", color: "from-red-500 to-orange-500"},
+      {name: "민차이", desc: "시원한 중식당", color: "from-red-600 to-rose-700"},
+      {name: "비빕밥비빔", desc: "든든한 건강 비빔밥", color: "from-emerald-500 to-teal-400"}
+    ];
+
+    function generatePoster() {
+      const name = document.getElementById('shopName').value || "염창 맛집";
       const desc = document.getElementById('desc').value || "염창역 인근";
-      
+      const type = document.getElementById('type').value;
+
       const html = `
-        <div class="poster" style="background: linear-gradient(135deg, #fff7e6, #ffe6e6);">
-          <div class="title" style="color:#e63939;">${name}</div>
-          <div class="subtitle" style="margin:20px 0;">염창역 맛집</div>
-          <div style="text-align:center; font-size:22px; margin:30px 0; color:#333;">${desc}</div>
-          <div class="info">
-            <p>📍 염창역 3번 출구 도보 5분</p>
-            <p>🚀 지금 바로 방문하세요!</p>
+        <div class="h-full bg-gradient-to-br ${shops.find(s => s.name === name)?.color || 'from-rose-400 to-pink-500'} p-6 flex flex-col justify-between text-white">
+          <div>
+            <div class="text-5xl font-bold tracking-tighter mb-1">${name}</div>
+            <div class="text-xl opacity-90">${desc}</div>
           </div>
-          <div style="position:absolute; bottom:10px; left:0; right:0; text-align:center; font-size:12px; color:#888;">
-            Made with AI • 지역상권 응원
+          
+          <div class="text-center my-8">
+            <div class="inline-block bg-white/20 backdrop-blur-md px-8 py-4 rounded-3xl text-2xl font-medium">
+              염창역 맛집
+            </div>
+          </div>
+          
+          <div class="space-y-3 text-sm">
+            <div class="flex items-center gap-3">
+              📍 <span>염창역 3번 출구 도보 5분</span>
+            </div>
+            <div class="flex items-center gap-3">
+              ⭐ <span>지금 바로 방문하세요!</span>
+            </div>
+          </div>
+          
+          <div class="text-xs opacity-70 text-center mt-8">
+            Made with ❤️ for 염창 상권 • AI 활용 사례
           </div>
         </div>
       `;
       document.getElementById('result').innerHTML = html;
     }
+
+    // 갤러리 생성
+    function createGallery() {
+      const gallery = document.getElementById('gallery');
+      shops.forEach(shop => {
+        const div = document.createElement('div');
+        div.className = `poster rounded-3xl overflow-hidden cursor-pointer hover:scale-105 transition`;
+        div.innerHTML = `
+          <div class="h-full bg-gradient-to-br ${shop.color} p-6 flex flex-col justify-between text-white text-center">
+            <div class="mt-auto">
+              <div class="text-3xl font-bold mb-2">${shop.name}</div>
+              <div class="text-lg">${shop.desc}</div>
+            </div>
+            <div class="text-xs mt-8 opacity-75">클릭하면 적용</div>
+          </div>
+        `;
+        div.onclick = () => {
+          document.getElementById('shopName').value = shop.name;
+          document.getElementById('desc').value = shop.desc;
+          generatePoster();
+        };
+        gallery.appendChild(div);
+      });
+    }
+
+    window.onload = createGallery;
   </script>
 </body>
 </html>
